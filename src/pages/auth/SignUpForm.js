@@ -14,7 +14,46 @@ const SignUpForm = () => {
         <Container className={`${appStyles.Content} p-4 `}>
           <h1 className={styles.Header}>sign up</h1>
 
-          {/* add your form here */}
+          <Form>
+            <Form.Group controlId="username">
+              <Form.Label className="d-none">username</Form.Label>
+              <Form.Control
+                className={styles.Input}
+                type="text"
+                placeholder="Username"
+                name="username"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="password1">
+              <Form.Label className="d-none">Password</Form.Label>
+              <Form.Control
+                className={styles.Input}
+                type="password"
+                placeholder="Password"
+                name="password1"
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="password12">
+              <Form.Label className="d-none">Confirm password</Form.Label>
+              <Form.Control
+                className={styles.Input}
+                type="password"
+                placeholder="Confirm password"
+                name="password2"
+              ></Form.Control>
+            </Form.Group>
+
+            <Button
+              className={
+                "${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}"
+              }
+              type="submit"
+            >
+              Sign UP
+            </Button>
+          </Form>
         </Container>
         <Container className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signin">
