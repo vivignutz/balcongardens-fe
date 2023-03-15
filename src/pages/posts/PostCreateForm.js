@@ -1,5 +1,3 @@
-import React, { useRef, useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -8,26 +6,46 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Image from "react-bootstrap/Image";
 
-import Asset from "../../components/Asset";
-
 import Upload from "../../assets/upload.png";
-
 import styles from "../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import Asset from "../../components/Asset";
 
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
+//import { useRedirect } from "../../hooks/useRedirect";
+
+// Component used for creating a car post.
+// Takes input from the user in the forms and post it to the API
+// Includes error handling that shows an alert to the user.
 
 function PostCreateForm() {
+  //  useRedirect("loggedOut");
+
   const [errors, setErrors] = useState({});
 
   const [postData, setPostData] = useState({
     title: "",
-    content: "",
+    description: "",
     image: "",
+    plant_type: "unknown",
+    difficulty_level: "1",
+    created_at: "",
+    city: "",
+    email: "youremailhere@mail.com",
   });
-  const { title, content, image } = postData;
+  const {
+    title,
+    image,
+    description,
+    plant_type,
+    difficulty_level,
+    created_at,
+    city,
+    email,
+  } = postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -54,7 +72,7 @@ function PostCreateForm() {
     const formData = new FormData();
 
     formData.append("title", title);
-    formData.append("content", content);
+    formData.append("description", description);
     formData.append("image", imageInput.current.files[0]);
 
     try {
@@ -90,12 +108,12 @@ function PostCreateForm() {
         <Form.Control
           as="textarea"
           rows={6}
-          name="content"
-          value={content}
+          name="description"
+          value={description}
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.content?.map((message, idx) => (
+      {errors?.description?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
