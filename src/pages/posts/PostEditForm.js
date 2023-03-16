@@ -17,7 +17,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 
 /* Component that includes the form for editing/updating
 posts. Includes error handling for input fields*/
-const PostEditForm = () => {
+function PostEditForm() {
   const [errors, setErrors] = useState({});
 
   const [postData, setPostData] = useState({
@@ -40,10 +40,10 @@ const PostEditForm = () => {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
-        const { title, content, image, email, city, is_owner } = data;
+        const { title, description, image, email, city, is_owner } = data;
 
         is_owner
-          ? setPostData({ title, content, image, email, city })
+          ? setPostData({ title, description, image, email, city })
           : history.push("/");
       } catch (err) {
         console.log(err);
@@ -79,8 +79,8 @@ const PostEditForm = () => {
     formData.append("email", email);
     formData.append("city", city);
 
-    if (imageFile?.current?.files[0]) {
-      formData.append("image", imageFile?.current?.files[0]);
+    if (imageInput?.current?.files[0]) {
+      formData.append("image", imageInput.current.files[0]);
     }
 
     try {
@@ -177,9 +177,9 @@ const PostEditForm = () => {
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
           >
             <Form.Group className="text-center">
-              <Figure>
+              <figure>
                 <Image className={appStyles.Image} src={image} rounded />
-              </Figure>
+              </figure>
               <div>
                 <Form.Label
                   className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
@@ -233,6 +233,6 @@ const PostEditForm = () => {
       </Row>
     </Form>
   );
-};
+}
 
 export default ProfileEditForm;
