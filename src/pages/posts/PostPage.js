@@ -7,8 +7,11 @@ import Container from "react-bootstrap/Container";
 import appStyles from "../../App.module.css";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
+//import PopularProfiles from "../profiles/PopularProfiles";
 import Post from "./Post";
 
+// Component used to create the complete postpage
+// Imports Post and Popularprofiles component
 function PostPage() {
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
@@ -22,7 +25,7 @@ function PostPage() {
         setPost({ results: [post] });
         console.log(post);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
 
@@ -32,12 +35,12 @@ function PostPage() {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular profiles for mobile</p>
+        <PopularProfiles mobile />
         <Post {...post.results[0]} setPosts={setPost} postPage />
         <Container className={appStyles.Content}>Comments</Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        Popular profiles for desktop
+        <PopularProfiles />
       </Col>
     </Row>
   );
