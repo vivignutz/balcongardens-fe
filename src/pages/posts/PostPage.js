@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import appStyles from "../../App.module.css";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-//import PopularProfiles from "../profiles/PopularProfiles";
+import PopularProfiles from "../profiles/PopularProfiles";
 import Post from "./Post";
 import Comment from ".../.../comments/Comment";
 

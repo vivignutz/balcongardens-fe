@@ -1,13 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
-import Container from "react-bootstrap/Container";
 import Asset from "../../components/Asset";
-import Profile from "./profiles";
-import { useProfileData } from "../../contexts/ProfileDataContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-// Creates the sidebar with the top sellers
 const PopularProfiles = ({ mobile }) => {
-  const { popularProfiles } = useProfileData();
+  const [profileData, setProfileData] = useState({
+    // we will use the pageProfile later!
+    pageProfile: { results: [] },
+    popularProfiles: { results: [] },
+  });
+  const { popularProfiles } = profileData;
+  const currentUser = useCurrentUser();
+
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(
+          "/profiles/?ordering=-followers_count"
+        );
+        setProfileData((prevState) => ({
+          ...prevState,
+          popularProfiles: data,
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    handleMount();
+  }, [currentUser]);
 
   return (
     <Container
@@ -17,16 +40,16 @@ const PopularProfiles = ({ mobile }) => {
     >
       {popularProfiles.results.length ? (
         <>
-          <p className="font-weight-bold text-center">Top Sellers:</p>
+          <p>Most followed users.</p>
           {mobile ? (
             <div className="d-flex justify-content-around">
               {popularProfiles.results.slice(0, 4).map((profile) => (
-                <Profile key={profile.id} profile={profile} mobile />
+                <Profile key={prifile.id} profile={profile} mobile />
               ))}
             </div>
           ) : (
             popularProfiles.results.map((profile) => (
-              <Profile key={profile.id} profile={profile} />
+              <Profile key={prifile.id} profile={profile} />
             ))
           )}
         </>
