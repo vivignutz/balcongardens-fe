@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -32,21 +32,21 @@ function PostEditForm() {
   const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
-  const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
-  const imageFile = useRef();
+  //const currentUser = useCurrentUser();
+  //const setCurrentUser = useSetCurrentUser();
+
 
   useEffect(() => {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
-        const { title, description, image, email, city, is_owner } = data;
+        const { name, description, image, email, city, is_owner } = data;
 
         is_owner
-          ? setPostData({ title, description, image, email, city })
+          ? setPostData({ name, description, image, email, city })
           : history.push("/");
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
 
@@ -87,7 +87,7 @@ function PostEditForm() {
       await axiosReq.put(`/posts/${id}/`, formData);
       history.push(`/posts/${id}`);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -97,15 +97,15 @@ function PostEditForm() {
   const textFields = (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label>Name</Form.Label>
         <Form.Control
           type="text"
-          name="title"
-          value={title}
+          name="name"
+          value={name}
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.title?.map((message, idx) => (
+      {errors?.name?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
@@ -235,4 +235,4 @@ function PostEditForm() {
   );
 }
 
-export default ProfileEditForm;
+export default PostEditForm;
