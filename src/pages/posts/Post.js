@@ -21,7 +21,6 @@ const Post = (props) => {
     plant_type,
     difficulty_level,
     created_at,
-    updated_at,
     city,
     email,
     image,
@@ -32,21 +31,6 @@ const Post = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-
-  // Save plant I want
-  //const handleSave = async () => {
-  //try {
-  //const { data } = await axiosRes.post("/saved/", { post: id });
-  //setPosts((setPosts) => ({
-  //...setPosts,
-  //results: setPosts.results.map((post) => {
-  //return post.id === id ? { ...post, save_id: data.id } : post;
-  //}),
-  //}));
-  //} catch (err) {
-  //console.log(err);
-  //}
-  //};
 
   //Like posts
   const handleLike = async () => {
@@ -141,6 +125,32 @@ const Post = (props) => {
         {description && (
           <Card.Text className="text-left mb-5">{description}</Card.Text>
         )}
+
+        <div className="d-flex justify-content-between">
+          <div>
+            <span>Plant type - chose one option: </span>
+            <span>{plant_type}</span>
+          </div>
+          <div>
+            <span>Difficulty level - chose one option: </span>
+            <span>{difficulty_level}</span>
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <div>
+            <span>Created at: </span>
+            <span>{created_at}</span>
+          </div>
+          <div>
+            <span>City: </span>
+            <span>{city}</span>
+          </div>
+          <div>
+            <span>Email: </span>
+            <span>{email}</span>
+          </div>
+        </div>
 
         <Media className="align-items-center justify-content-around">
           <span>Offered by:</span>
