@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -75,6 +76,11 @@ function PostCreateForm() {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", imageInput.current.files[0]);
+    formData.append("plant_type", plant_type);
+    formData.append("difficulty_level", difficulty_level);
+    formData.append("created_at", created_at);
+    formData.append("city", city);
+    formData.append("email", email);
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
@@ -105,6 +111,36 @@ function PostCreateForm() {
       ))}
 
       <Form.Group>
+        <Form.Label>Plant type</Form.Label>
+        <Form.Control
+          as="select"
+          type="text"
+          name="plant_type"
+          value={plant_type}
+          onChange={handleChange}
+        >
+          <option value="unknown">Unknown</option>
+          <option value="amaryllis">Amaryllis</option>
+          <option value="begonia">Begonia</option>
+          <option value="berries">Berries</option>
+          <option value="bulbs">Bulbs</option>
+          <option value="chillis">Chillis</option>
+          <option value="chinese_money_plant">Chinese money plant</option>
+          <option value="dragon_tree">Dragon Tree</option>
+          <option value="grape_ivy">Grape Ivy</option>
+          <option value="herbs">Herbs</option>
+          <option value="hop">Hop</option>
+          <option value="monstera_deliciosa">Monstera Deliciosa</option>
+          <option value="ornamental">Ornamental</option>
+          <option value="salads">Salads</option>
+          <option value="suculents">Suculents</option>
+          <option value="tomatoes">Tomatoes</option>
+          <option value="water_lily">Water Lily</option>
+          <option value="other">Other</option>
+        </Form.Control>
+      </Form.Group>
+
+      <Form.Group>
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
@@ -114,19 +150,95 @@ function PostCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
-      {errors?.content?.map((message, idx) => (
+      {errors?.description?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
       ))}
 
+      <Form.Group>
+        <Form.Label>Difficulty level</Form.Label>
+        <Form.Control
+          as="select"
+          type="text"
+          name="difficulty_level"
+          value={difficulty_level}
+          onChange={handleChange}
+        >
+          <option value="1">Low</option>
+          <option value="2">Moderate</option>
+          <option value="3">High</option>
+          <option value="4">Expert</option>
+          <option value="5">Almost impossible!</option>
+        </Form.Control>
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Offered at</Form.Label>
+        <Form.Control
+          type="date"
+          name="created_at"
+          value={created_at}
+          onChange={handleChange}
+          min="2023-01-01"
+        />
+      </Form.Group>
+      {errors?.created_at?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>City</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={1}
+          name="city"
+          value={city}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      {errors?.city?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Label>Email me to have this!</Form.Label>
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text>
+              <i className="fas fa-envelope"></i>
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            placeholder="youremailhere@mail.com"
+            required
+          />
+          {errors?.email?.map((message, idx) => (
+            <Alert variant="warning" key={idx}>
+              {message}
+            </Alert>
+          ))}
+        </InputGroup>
+      </Form.Group>
+
       <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        className={`${btnStyles.Button} ${btnStyles.Green}`}
         onClick={() => history.goBack()}
       >
         cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Green}`}
+        type="submit"
+      >
         create
       </Button>
     </div>
