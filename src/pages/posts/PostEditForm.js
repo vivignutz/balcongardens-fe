@@ -24,10 +24,20 @@ function PostEditForm() {
     name: "",
     description: "",
     image: "",
+    plant_type: "unknown",
+    difficulty_level: "1",
     email: "",
     city: "",
   });
-  const { name, description, image, email, city } = postData;
+  const {
+    name,
+    description,
+    image,
+    plant_type,
+    difficulty_level,
+    email,
+    city,
+  } = postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -39,10 +49,27 @@ function PostEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/posts/${id}/`);
-        const { name, description, image, email, city, is_owner } = data;
+        const {
+          name,
+          description,
+          plant_type,
+          difficulty_level,
+          image,
+          email,
+          city,
+          is_owner,
+        } = data;
 
         is_owner
-          ? setPostData({ name, description, image, email, city })
+          ? setPostData({
+              name,
+              description,
+              plant_type,
+              difficulty_level,
+              image,
+              email,
+              city,
+            })
           : history.push("/");
       } catch (err) {
         //console.log(err);
@@ -77,7 +104,8 @@ function PostEditForm() {
     formData.append("description", description);
     formData.append("email", email);
     formData.append("city", city);
-
+    formData.append("plant_type", plant_type);
+    formData.append("difficulty_level", difficulty_level);
     if (imageInput?.current?.files[0]) {
       formData.append("image", imageInput.current.files[0]);
     }
@@ -111,6 +139,36 @@ function PostEditForm() {
       ))}
 
       <Form.Group>
+        <Form.Label>Plant type</Form.Label>
+        <Form.Control
+          as="select"
+          type="text"
+          name="plant_type"
+          value={plant_type}
+          onChange={handleChange}
+        >
+          <option value="unknown">Unknown</option>
+          <option value="amaryllis">Amaryllis</option>
+          <option value="begonia">Begonia</option>
+          <option value="berries">Berries</option>
+          <option value="bulbs">Bulbs</option>
+          <option value="chillis">Chillis</option>
+          <option value="chinese_money_plant">Chinese money plant</option>
+          <option value="dragon_tree">Dragon Tree</option>
+          <option value="grape_ivy">Grape Ivy</option>
+          <option value="herbs">Herbs</option>
+          <option value="hop">Hop</option>
+          <option value="monstera_deliciosa">Monstera Deliciosa</option>
+          <option value="ornamental">Ornamental</option>
+          <option value="salads">Salads</option>
+          <option value="suculents">Suculents</option>
+          <option value="tomatoes">Tomatoes</option>
+          <option value="water_lily">Water Lily</option>
+          <option value="other">Other</option>
+        </Form.Control>
+      </Form.Group>
+
+      <Form.Group>
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
@@ -125,6 +183,23 @@ function PostEditForm() {
           {message}
         </Alert>
       ))}
+
+      <Form.Group>
+        <Form.Label>Difficulty level</Form.Label>
+        <Form.Control
+          as="select"
+          type="text"
+          name="difficulty_level"
+          value={difficulty_level}
+          onChange={handleChange}
+        >
+          <option value="1">Low</option>
+          <option value="2">Moderate</option>
+          <option value="3">High</option>
+          <option value="4">Expert</option>
+          <option value="5">Almost impossible!</option>
+        </Form.Control>
+      </Form.Group>
 
       <Form.Group>
         <Form.Label>Email</Form.Label>
