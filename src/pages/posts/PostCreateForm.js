@@ -18,7 +18,7 @@ import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useRedirect } from "../../hooks/useRedirect";
 
-// Component used for creating a car post.
+// Component used for creating a post.
 // Takes input from the user in the forms and post it to the API
 // Includes error handling that shows an alert to the user.
 
@@ -82,7 +82,7 @@ function PostCreateForm() {
       const { data } = await axiosReq.post("/posts/", formData);
       history.push(`/posts/${data.id}`);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
