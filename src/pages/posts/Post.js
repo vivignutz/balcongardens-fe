@@ -22,7 +22,6 @@ const Post = (props) => {
     difficulty_level,
     created_at,
     city,
-    email,
     image,
     postPage,
     setPosts,
@@ -128,11 +127,11 @@ const Post = (props) => {
 
         <div className="d-flex justify-content-between">
           <div>
-            <span>Plant type - chose one option: </span>
+            <span>Plant type: </span>
             <span>{plant_type}</span>
           </div>
           <div>
-            <span>Difficulty level - chose one option: </span>
+            <span>Difficulty level: </span>
             <span>{difficulty_level}</span>
           </div>
         </div>
@@ -145,10 +144,6 @@ const Post = (props) => {
           <div>
             <span>City: </span>
             <span>{city}</span>
-          </div>
-          <div>
-            <span>Email: </span>
-            <span>{email}</span>
           </div>
         </div>
 
