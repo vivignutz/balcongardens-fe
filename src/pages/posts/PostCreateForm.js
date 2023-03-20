@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -36,7 +35,6 @@ function PostCreateForm() {
     difficulty_level: "1",
     created_at: "",
     city: "",
-    email: "youremailhere@mail.com",
   });
   const {
     title,
@@ -46,7 +44,6 @@ function PostCreateForm() {
     difficulty_level,
     created_at,
     city,
-    email,
   } = postData;
 
   const imageInput = useRef(null);
@@ -74,13 +71,12 @@ function PostCreateForm() {
     const formData = new FormData();
 
     formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image", imageInput.current.files[0]);
     formData.append("plant_type", plant_type);
+    formData.append("description", description);
     formData.append("difficulty_level", difficulty_level);
     formData.append("created_at", created_at);
     formData.append("city", city);
-    formData.append("email", email);
+    formData.append("image", imageInput.current.files[0]);
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
@@ -119,7 +115,7 @@ function PostCreateForm() {
           value={plant_type}
           onChange={handleChange}
         >
-          <option value="unknown">Unknown</option>
+          <option value="unknown">Chose one</option>
           <option value="amaryllis">Amaryllis</option>
           <option value="begonia">Begonia</option>
           <option value="berries">Berries</option>
@@ -205,6 +201,7 @@ function PostCreateForm() {
         </Alert>
       ))}
 
+      {/*
       <Form.Group>
         <Form.Label>Email me to have this!</Form.Label>
         <InputGroup>
@@ -227,7 +224,7 @@ function PostCreateForm() {
             </Alert>
           ))}
         </InputGroup>
-      </Form.Group>
+      </Form.Group> */}
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Green}`}
@@ -259,7 +256,7 @@ function PostCreateForm() {
                   </figure>
                   <div>
                     <Form.Label
-                      className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
+                      className={`${btnStyles.Button} ${btnStyles.Green} btn`}
                       htmlFor="image-upload"
                     >
                       Change the image
