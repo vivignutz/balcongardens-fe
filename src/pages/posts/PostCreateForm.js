@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -200,31 +201,6 @@ function PostCreateForm() {
           {message}
         </Alert>
       ))}
-
-      {/*
-      <Form.Group>
-        <Form.Label>Email me to have this!</Form.Label>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>
-              <i className="fas fa-envelope"></i>
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            placeholder="youremailhere@mail.com"
-            required
-          />
-          {errors?.email?.map((message, idx) => (
-            <Alert variant="warning" key={idx}>
-              {message}
-            </Alert>
-          ))}
-        </InputGroup>
-      </Form.Group> */}
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Green}`}

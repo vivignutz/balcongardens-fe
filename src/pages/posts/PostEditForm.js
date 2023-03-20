@@ -26,18 +26,10 @@ function PostEditForm() {
     image: "",
     plant_type: "unknown",
     difficulty_level: "1",
-    email: "",
     city: "",
   });
-  const {
-    name,
-    description,
-    image,
-    plant_type,
-    difficulty_level,
-    email,
-    city,
-  } = postData;
+  const { name, description, image, plant_type, difficulty_level, city } =
+    postData;
 
   const imageInput = useRef(null);
   const history = useHistory();
@@ -55,7 +47,6 @@ function PostEditForm() {
           plant_type,
           difficulty_level,
           image,
-          email,
           city,
           is_owner,
         } = data;
@@ -67,7 +58,6 @@ function PostEditForm() {
               plant_type,
               difficulty_level,
               image,
-              email,
               city,
             })
           : history.push("/");
@@ -102,7 +92,6 @@ function PostEditForm() {
 
     formData.append("name", name);
     formData.append("description", description);
-    formData.append("email", email);
     formData.append("city", city);
     formData.append("plant_type", plant_type);
     formData.append("difficulty_level", difficulty_level);
@@ -202,21 +191,6 @@ function PostEditForm() {
       </Form.Group>
 
       <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      {errors?.email?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
         <Form.Label>City</Form.Label>
         <Form.Control
           type="text"
@@ -232,12 +206,15 @@ function PostEditForm() {
       ))}
 
       <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        className={`${btnStyles.Button} ${btnStyles.Green}`}
         onClick={() => history.goBack()}
       >
         cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Green}`}
+        type="submit"
+      >
         save
       </Button>
     </div>
@@ -256,7 +233,7 @@ function PostEditForm() {
               </figure>
               <div>
                 <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn`}
+                  className={`${btnStyles.Button} ${btnStyles.Green} btn`}
                   htmlFor="image-upload"
                 >
                   Change the image
@@ -278,7 +255,7 @@ function PostEditForm() {
 
               <div>
                 <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
+                  className={`${btnStyles.Button} ${btnStyles.Green} btn my-auto`}
                   htmlFor="image-upload"
                 >
                   Change the image
