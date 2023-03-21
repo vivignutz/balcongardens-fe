@@ -23,6 +23,7 @@ const Post = (props) => {
     created_at,
     city,
     image,
+    updated_at,
     postPage,
     setPosts,
   } = props;
@@ -30,6 +31,21 @@ const Post = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+
+  //Edit post
+  const handleEdit = () => {
+    history.push(`/posts/${id}/edit`);
+  };
+
+  //Delete post from list
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}/`);
+      history.goBack();
+    } catch (err) {
+      //console.log(err);
+    }
+  };
 
   //Like posts
   const handleLike = async () => {
@@ -45,21 +61,6 @@ const Post = (props) => {
       }));
     } catch (err) {
       console.log(err);
-    }
-  };
-
-  //Edit post
-  const handleEdit = () => {
-    history.push(`/posts/${id}/edit`);
-  };
-
-  //Delete post from list
-  const handleDelete = async () => {
-    try {
-      await axiosRes.delete(`/posts/${id}/`);
-      history.goBack();
-    } catch (err) {
-      //console.log(err);
     }
   };
 
@@ -83,47 +84,60 @@ const Post = (props) => {
   return (
     <Card className={styles.Post}>
       <Card.Body>
-        <Link to={`/posts/${id}`}>
-          <Card.Img src={image} alt={title} />
-        </Link>
+        <Media className="align-items-center justify-content-between">
+          <Link to={`/profiles/${profile_id}`}>
+            <Avatar src={profile_image} height={55} />
+            {owner}
+          </Link>
+          <div className="d-flex align-items-center">
+            <span>{updated_at}</span>
+            {is_owner && postPage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+          </div>
+        </Media>
       </Card.Body>
 
-      <div className={styles.PostBar}>
-        {is_owner ? (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>You can't like your own post!</Tooltip>}
-          >
-            <i className="far fa-heart" />
-          </OverlayTrigger>
-        ) : like_id ? (
-          <span onClick={handleUnlike}>
-            <i className={`fas fa-heart ${styles.Heart}`} />
-          </span>
-        ) : currentUser ? (
-          <span onClick={handleLike}>
-            <i className={`far fa-heart ${styles.HeartOutline}`} />
-          </span>
-        ) : (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Log in to like posts!</Tooltip>}
-          >
-            <i className="far fa-heart" />
-          </OverlayTrigger>
-        )}
-        {likes_count}
-        <Link to={`/posts/${id}`}>
-          <i className="far fa-comments" />
-        </Link>
-        {comments_count}
-      </div>
+      <Link to={`/posts/${id}`}>
+        <Card.Img src={image} alt={title} />
+      </Link>
 
       <Card.Body>
-        {title && <Card.Title className="text-left">{title}</Card.Title>}
-        {description && (
-          <Card.Text className="text-left mb-5">{description}</Card.Text>
-        )}
+        {title && <Card.Title className="text-center">{title}</Card.Title>}
+        {description && <Card.Text>{description}</Card.Text>}
+        <div className={styles.PostBar}>
+          {is_owner ? (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>You can't like your own post!</Tooltip>}
+            >
+              <i className="far fa-heart" />
+            </OverlayTrigger>
+          ) : like_id ? (
+            <span onClick={handleUnlike}>
+              <i className={`fas fa-heart ${styles.Heart}`} />
+            </span>
+          ) : currentUser ? (
+            <span onClick={handleLike}>
+              <i className={`far fa-heart ${styles.HeartOutline}`} />
+            </span>
+          ) : (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Log in to like posts!</Tooltip>}
+            >
+              <i className="far fa-heart" />
+            </OverlayTrigger>
+          )}
+          {likes_count}
+          <Link to={`/posts/${id}`}>
+            <i className="far fa-comments" />
+          </Link>
+          {comments_count}
+        </div>
 
         <div className="d-flex justify-content-between">
           <div>
@@ -138,32 +152,17 @@ const Post = (props) => {
 
         <div className="d-flex justify-content-between">
           <div>
-            <span>Created at: </span>
-            <span>{created_at}</span>
-          </div>
-          <div>
             <span>City: </span>
             <span>{city}</span>
           </div>
         </div>
 
-        <Media className="align-items-center justify-content-around">
-          <span>Offered by:</span>
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatar src={profile_image} height={55} />
-            {owner}
-          </Link>
-
-          <div className="d-flex align-items-center">
-            <span>{created_at}</span>
-            {is_owner && postPage && (
-              <MoreDropdown
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-            )}
-          </div>
-        </Media>
+        <div className="align-items-center justify-content-around">
+          <span>{created_at}</span>
+          {is_owner && postPage && (
+            <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
+          )}{" "}
+        </div>
       </Card.Body>
     </Card>
   );
