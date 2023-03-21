@@ -36,22 +36,22 @@
 .BlueOutline:hover,
 .Bright:hover {
   background-color: #73a254;
-  color: #ffffff;
+  color: #f6ffcf;
 }
 
-.BlueOutline,
-.Blue:hover {
+.GreenOutline,
+.Green:hover {
   /* border: 1px solid #2142b2; */
-  background-color: #ffffff;
-  color: #2142b2;
+  background-color: #f6ffcf;
+  color: #73a254;
 }
 
-.Black,
-.BlackOutline:hover {
+.Green,
+.GreenOutline:hover {
   /* background-color: #242a3d;
     color: white; */
-  background-color: #242a3d;
-  color: aliceblue;
+  background-color: #73a254;
+  color: #f6ffcf;
 }
 
 .Black:hover,
