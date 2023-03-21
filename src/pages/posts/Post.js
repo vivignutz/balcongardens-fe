@@ -24,7 +24,6 @@ const Post = (props) => {
     plant_type,
     difficulty_level,
     created_at,
-    city,
     image,
     updated_at,
     postPage,
@@ -153,12 +152,12 @@ const Post = (props) => {
           </div>
         </div>
 
-        <div className="d-flex justify-content-between">
+        {/* <div className="d-flex justify-content-between">
           <div>
             <span>City: </span>
             <span>{city}</span>
           </div>
-        </div>
+        </div> */}
 
         <div className="align-items-center justify-content-around">
           <span>{created_at}</span>
