@@ -12,8 +12,8 @@ This part of the project is the frontend part based on the React framework, it c
 
 ### [](https://github.com/vivignutz/balcongardens-drf-api#links-to-the-backend-api-project)Links to the Backend API Project
 
-- [Backend - Repository](https://github.com/dvivignutz/balcongardens-drf-api)
-- [Backend - Deployment](https://bacongardends.herokuapp.com/)
+- [Backend - Repository](https://github.com/vivignutz/balcongardens-drf-api)
+- [Backend - Deployment](https://balcongardens.herokuapp.com/)
 
 ## [](https://github.com/vivignutz/balcongardens-fe#toc)Table of Contents
 
